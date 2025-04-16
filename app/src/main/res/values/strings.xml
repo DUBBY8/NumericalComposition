@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Numerical Composition</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_logo">Welcome logo</string>
+    <string name="numerical_composition">Numerical Composition</string>
+    <string name="game_rules">Правила игры: Перед вами будет 3 фигуры, 2 снизу и 1 сверху. В двух из них будут числа. Из ответов нужно выбрать число, которое при сложении с нижним будет равно верхнему.</string>
+    <string name="start">Начать</string>
+    <string name="choose_level">Выбери уровень:</string>
+    <string name="test">Тестовый</string>
+    <string name="easy">Лёгкий</string>
+    <string name="normal">Средний</string>
+    <string name="hard">Сложный</string>
+    <string name="question_mark">\?</string>
+    <string name="percent_answers">Правильных ответов %s (Минимум %s)</string>
+    <string name="required_answers">Необходимое количество правильных ответов: %s</string>
+    <string name="score_answers">Ваш счёт: %s</string>
+    <string name="require_percentage">Необходимый процент правильных ответов: %s</string>
+    <string name="score_percentage">Процент правильных ответов: %s</string>
+    <string name="try_again">Попробовать снова</string>
 </resources>
