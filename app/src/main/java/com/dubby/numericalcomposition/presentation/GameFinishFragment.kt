@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.dubby.numericalcomposition.R
 import com.dubby.numericalcomposition.databinding.FragmentGameFinishBinding
 import com.dubby.numericalcomposition.domain.entity.GameResult
 
@@ -27,6 +28,53 @@ class GameFinishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupClickListeners()
+        bindViews()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parseArgs()
+    }
+
+    private fun bindViews() {
+        with(binding) {
+            ivEmojiResult.setImageResource(getRightImage())
+            tvRequiredAnswers.text = String.format(
+                getString(R.string.required_answers),
+                gameResult.gameSettings.minCountOfRightAnswers.toString()
+            )
+            tvScoreAnswers.text = String.format(
+                getString(R.string.score_answers),
+                gameResult.countOfRightAnswers.toString()
+            )
+            tvRequirePercentage.text = String.format(
+                getString(R.string.require_percentage),
+                gameResult.gameSettings.minPercentOfRightAnswers.toString()
+            )
+            tvScorePercentage.text = String.format(
+                getString(R.string.score_percentage),
+                calculatePercentOfRightAnswers().toString()
+            )
+        }
+    }
+
+    private fun calculatePercentOfRightAnswers(): Int {
+        if (gameResult.countOfQuestions == 0) {
+            return 0
+        }
+        return (gameResult.countOfRightAnswers.toDouble() / gameResult.countOfQuestions * 100).toInt()
+    }
+
+    private fun getRightImage(): Int {
+        return if (gameResult.winner) {
+            R.drawable.good
+        } else {
+            R.drawable.bad
+        }
+    }
+
+    private fun setupClickListeners() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -37,11 +85,6 @@ class GameFinishFragment : Fragment() {
         binding.btnRetry.setOnClickListener {
             retryGame()
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArgs()
     }
 
     private fun parseArgs() {

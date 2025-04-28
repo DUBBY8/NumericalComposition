@@ -2,9 +2,9 @@ package com.dubby.numericalcomposition.presentation
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.dubby.numericalcomposition.R
 import com.dubby.numericalcomposition.data.GameRepositoryImpl
 import com.dubby.numericalcomposition.domain.entity.GameResult
@@ -14,11 +14,10 @@ import com.dubby.numericalcomposition.domain.entity.Question
 import com.dubby.numericalcomposition.domain.usecases.GenerateQuestionUseCase
 import com.dubby.numericalcomposition.domain.usecases.GetGameSettingsUseCase
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
+class GameViewModel(application: Application, private val level: Level) : ViewModel() {
 
     private var timer: CountDownTimer? = null
     private lateinit var gameSettings: GameSettings
-    private lateinit var level: Level
     private val context = application
 
     private val _formattedTime = MutableLiveData<String>()
@@ -59,8 +58,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private var countOfRightAnswers = 0
     private var countOfQuestions = 0
 
-    fun startGame(level: Level) {
-        this.level = level
+    init {
+        startGame()
+    }
+
+    private fun startGame() {
         this.gameSettings = getGameSettingsUseCase(level)
         _minPercent.value = gameSettings.minPercentOfRightAnswers
         startTimer()
@@ -140,7 +142,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             countOfRightAnswers = countOfRightAnswers,
             countOfQuestions = countOfQuestions,
             gameSettings = gameSettings
-
         )
     }
 
