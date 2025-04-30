@@ -83,8 +83,7 @@ class GameViewModel(application: Application, private val level: Level) : ViewMo
             countOfRightAnswers.toString(),
             gameSettings.minCountOfRightAnswers.toString()
         )
-        _enoughCount.value =
-            countOfRightAnswers >= gameSettings.minCountOfRightAnswers
+        _enoughCount.value = countOfRightAnswers >= gameSettings.minCountOfRightAnswers
         _enoughPercent.value = percent >= gameSettings.minPercentOfRightAnswers
     }
 
